@@ -11,9 +11,11 @@ set(CMAKE_EXE_LINKER_FLAGS_SANITIZE "-fsanitize=address,undefined")
 find_package(Catch2 3 REQUIRED)
 
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
-add_executable(tests ${TEST_SOURCES})
+file(GLOB_RECURSE LIB_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+add_executable(tests ${TEST_SOURCES} ${LIB_SOURCES})
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+target_include_directories(tests PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
 include(CTest)
 include(Catch)
