@@ -1,28 +1,11 @@
 #pragma once
+#include "dtype.h"
+#include "shape.h"
 #include <cstddef>
-#include <cstdint>
 #include <format>
 #include <memory>
 #include <stdexcept>
 #include <vector>
-
-enum class DTYPE : std::uint8_t { FP32, INT8 };
-
-// returns the bytewidth of each datatype
-constexpr std::size_t byte_width(DTYPE dtype) {
-    switch (dtype) {
-    case DTYPE::FP32:
-        return 4;
-    case DTYPE::INT8:
-        return 1;
-    }
-    throw std::invalid_argument("Unsupported dtype.");
-}
-
-// used for type conversions between cpp and our enum
-template <typename T> constexpr DTYPE dtype_of();
-template <> constexpr DTYPE dtype_of<float>() { return DTYPE::FP32; }
-template <> constexpr DTYPE dtype_of<std::int8_t>() { return DTYPE::INT8; }
 
 class Tensor {
   public:
@@ -40,6 +23,8 @@ class Tensor {
     // getters
     [[nodiscard]] const std::vector<int> &shape() const;
     [[nodiscard]] const std::vector<size_t> &strides() const;
+    [[nodiscard]] bool is_contiguous() const;
+
     template <typename T> [[nodiscard]] T *data_as();
     template <typename T> [[nodiscard]] const T *data_as() const;
     template <typename T> [[nodiscard]] T *grad_as();
@@ -53,6 +38,8 @@ class Tensor {
     // ops
     void zero_grad();
     [[nodiscard]] Tensor transpose(int dim0, int dim1) const;
+    [[nodiscard]] Tensor contiguous() const;
+    [[nodiscard]] Tensor reshape(const std::vector<int> &new_shape) const;
 
   private:
     // constructor for transposes, views, contiguous, etc.
