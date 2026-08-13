@@ -1,3 +1,3 @@
-# Mini LLM
+# Mini Torch
 
-This is a pretty basic project! I'm implementing some of the most common LLM architectures, training an LLM, and eventually working on inference techniques.
+A basic project where I implemented a small tensor library with autograd from scratch. 

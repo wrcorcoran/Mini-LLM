@@ -9,7 +9,7 @@
 
 class Tensor {
   public:
-    Tensor(std::vector<int> shape, DTYPE dtype, bool requires_grad = false,
+    Tensor(std::vector<int> shape, DTYPE dtype = DTYPE::FP32, bool requires_grad = false,
            DTYPE grad_dtype = DTYPE::FP32);
 
     // delete copy constructor

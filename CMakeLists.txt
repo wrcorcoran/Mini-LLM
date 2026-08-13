@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(llm_from_scratch LANGUAGES CXX)
+project(mini_torch LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
